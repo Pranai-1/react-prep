@@ -32,3 +32,41 @@
   border-radius: 100%;
   background-color: gray;
 }
+
+
+.grid-container {
+  height: 40vh;
+  width: 100vw;
+  display: grid;
+  place-items: center;
+
+
+
+  .input {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; 
+  }
+
+.row{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap:4px
+}
+
+.col{
+    display: grid;
+  justify-content: center;
+  align-items: center;
+  gap:4px
+}
+  .element {
+    height: 30px;
+    width: 30px;
+    background-color: gray;
+    border-radius: 10%;
+  }
+}
