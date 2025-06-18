@@ -1,0 +1,9 @@
+video reference:-https://www.youtube.com/watch?v=oZD2fUzmtgg&t=2449s
+
+ 
+points to remember:-
+1.useCallback memoizes the function and stores the reference but useMemo memoizes the return value of the function
+2.watch the usage of useCallback and useMemo
+3.observer css part
+4.what if the debounce function that i am returning from the gun.js file will be in our gun.jsx file?ans:- we need to memoize it
+watch the usage of useref
