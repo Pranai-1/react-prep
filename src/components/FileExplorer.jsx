@@ -3,49 +3,108 @@ import { FaFolder } from "react-icons/fa";
 import { CiFileOn } from "react-icons/ci";
 import "./FileExplorer.css"
 export default function FileExplorer(){
-    const[folders,setFolders]=useState([])
-     useEffect(()=>{
-      const arr= pushFolders(explorer.items)
-      setFolders(arr)
-    },[])
-
-
-    function pushFolders(items){
-          return items.map((item)=>{
-            return (
-                <div>
-                    {item.isFolder ? 
-                   
-                    <div key={item.id} className="folderDiv">
-                        <div className="nameDiv"> 
-                            <span><FaFolder/></span> {item.name} </div> 
-                            <div className="buttonDiv"><button>+folder</button><button>+file</button></div> 
-                    </div>
-                    :   <div className="fileDiv" key={item.id}>
-                        <span><CiFileOn/></span> {item.name}
-                    </div>
-                     }
-                  {item.items.length>0 && pushFolders(item.items)}
-                </div>
-            )
-        })
-    }
-console.log(pushFolders(explorer.items))
+ 
     return(
         <div className="main">
         <p style={{textAlign:"center"}}>File explorer</p>
         <div className="container">
-          <div className="folderDiv">
+          {/* <div className="folderDiv">
                  <div key={explorer.id} className="nameDiv"> 
                     <span><FaFolder/></span> {explorer.name} </div> 
                     <div className="buttonDiv"><button>+folder</button><button>+file</button></div> 
-            </div>
-          {pushFolders(explorer.items)}
+            </div> */}
+            <FileNode node={explorer}/>
+         
         </div>
         </div>
     )
 }
 
+
+
+
+
+    function FileNode({node}){
+      console.log(node)
+      const[fieNode,setFileNode]=useState(node)
+      const[isOpen,setIsOpen]=useState(false)
+      const[name,setName]=useState("")
+      const[add,setAdd]=useState("")
+      const handleChange=()=>{
+        setIsOpen((prev)=>!prev)
+      }
+
+
+      function handleAdd(e) {
+          e.stopPropagation();
+
+          const newItem = {
+            id: Date.now() + Math.floor(Math.random() * 1000), 
+            name: name,
+            isFolder: add === "folder",
+            items: add === "folder" ? [] : undefined,
+          };
+
+          setFileNode((node) => ({
+            ...node,
+            items: [newItem, ...(node.items || [])],
+          }));
+
+          setAdd("");
+}
+
+
+            return (
+                <div style={{
+                  marginLeft:"20px",
+                  
+                }} onClick={()=>{setAdd("")}}>
+
+                    {fieNode.isFolder ? 
+                   
+                    <div key={fieNode.id} className="folderDiv" style={{
+                      cursor:"pointer"
+                    }} onClick={handleChange}>
+                        <div className="nameDiv"> 
+                            <span><FaFolder/></span> {fieNode.name} 
+                        </div> 
+                            <div className="buttonDiv">
+                              <button onClick={(e)=>{
+                                e.stopPropagation()
+                                setAdd("folder")
+                              }}>+folder</button>
+                              <button  onClick={(e)=>{
+                                 e.stopPropagation()
+                                setAdd("file")
+                              }}>+file</button>
+                              </div> 
+                      
+                    </div>
+                    :   <div className="fileDiv" key={fieNode.id}>
+                        <span><CiFileOn/></span> {fieNode.name}
+                    </div>
+                     }
+                         {add.length>0 && 
+                          <div style={{
+                            width:"300px",
+                            display:"flex",
+                            justifyContent:"center",
+                            alignItems:"center",
+                            gap:"10px",
+                            padding:"5px"
+                          }}>
+                          <input style={{padding:"10px"}} type="text" name="name" value={name} onClick={(e)=>{ e.stopPropagation()}} onChange={(e)=>{
+                             e.stopPropagation()
+                            setName(e.target.value)
+                            }} />
+                          <button onClick={handleAdd}>Add</button>
+                          </div>
+                          }
+
+                 {isOpen && fieNode.items && fieNode.items.length>0 && fieNode.items.map((item)=> <FileNode key={item.id} node={item}/>)}
+                </div>
+            )
+    }
 
 
 
