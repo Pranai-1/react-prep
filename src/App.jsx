@@ -6,6 +6,7 @@ import MemoryGame from "./components/MemoryGame"
 import FileExplorer from "./components/FileExplorer"
 import Pagination from "./components/Pagination"
 import CountDown from "./components/CountdownTimer"
+import Trafficlights from "./components/Trafficlights"
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
          <Route path="/file"  element={<FileExplorer/>} />
          <Route path="/page"  element={<Pagination/>} />
           <Route path="/timer"  element={<CountDown/>} />      
+           <Route path="/lights"  element={<Trafficlights/>} />      
       </Routes>
     </Router>
   )
