@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { debounce,throttle } from "../functions/Gun"
+import { ContextProvider } from "./Reducer"
 
 
 
@@ -10,6 +11,9 @@ export default function Gun(){
     const[normalCount,setNormalCount]=useState(0)
     const[debounceCount,setDebounceCount]=useState(0)
     const[throttleCount,setThrottleCount]=useState(0)
+    const {state,logout}=useContext(ContextProvider)
+
+console.log(state)
     useEffect(()=>{
         setTimeout(()=>{
                 if(debounceGun)
@@ -83,7 +87,14 @@ export default function Gun(){
              </div>
 
         
-
+{state.name.length>0 && 
+<div>
+    <p>loggedin</p>
+    <p>{state.name}</p>
+    <button onClick={()=>{
+       logout()
+    }}>logout</button>
+    </div>}
           
         
         </div>

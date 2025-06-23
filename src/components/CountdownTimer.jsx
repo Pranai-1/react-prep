@@ -48,7 +48,7 @@ export default function CountDown() {
       setMinutes(newM);
       setSeconds(newS);
 
-      handleStart(); // loop
+      handleDecrease(); // loop
     }, 1000);
   }
 
